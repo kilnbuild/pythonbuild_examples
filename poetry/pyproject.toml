@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "pythonbuild-poetry"
+version = "0.1.0"
+description = ""
+authors = ["Josh Taylor <joshuataylorx@gmail.com>"]
+readme = "README.md"
+packages = [{include = "pythonbuild_poetry"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+toml = "^0.10.2"
+
+# This example uses python.build index for darwin only.
+grpcio = [
+    {version="==1.47.2", source="pythonbuild"},
+   #  {version="==1.47.2", markers="sys_platform != 'darwin' and platform_machine!='arm64'", source="pypi"}
+]
+
+# This example uses the direct URL. This is if you want to link directly to the package.
+grpcio-tools = [
+   {version="==1.47.2", markers="sys_platform != 'darwin' and platform_machine!='arm64'", source="pypi"},
+   {markers="sys_platform == 'darwin' and platform_machine=='arm64'", url='https://wheels.python.build/grpcio_tools-1.47.2-cp310-cp310-macosx_11_0_arm64.whl'}
+]
+
+# # This example uses a vendored file. This is if you want to vendor the file directly inside the repository.
+lxml = [
+   {version="==4.6.5", markers="sys_platform != 'darwin' and platform_machine!='arm64'", source="pythonbuild"},
+   {markers="sys_platform == 'darwin' and platform_machine=='arm64'", url='https://wheels.python.build/lxml-4.6.5-cp310-cp310-macosx_11_0_arm64.whl'}
+]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "pythonbuild"
+url = "https://python.build/simple/"
+default = false
+secondary = false
